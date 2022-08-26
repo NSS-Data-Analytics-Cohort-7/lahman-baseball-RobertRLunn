@@ -54,13 +54,36 @@
 
 -- 4. Using the fielding table, group players into three groups based on their position: label players with position OF as "Outfield", those with position "SS", "1B", "2B", and "3B" as "Infield", and those with position "P" or "C" as "Battery". Determine the number of putouts made by each of these three groups in 2016.
 
+-- SELECT SUM(po) AS pos_putouts,
+-- CASE WHEN pos = 'OF' THEN 'Outfield'
+-- WHEN pos IN ('SS', '1B', '2B', '3B') THEN 'Infield'
+-- WHEN pos IN ('P', 'C') THEN 'Battery'
+-- ELSE 'Other'
+-- END AS position
+-- FROM fielding
+-- WHERE yearid = '2016'
+-- GROUP BY position;
 
-
-
-
+-- Outfield 29560, Infield 58934, Battery 41424
    
 -- 5. Find the average number of strikeouts per game by decade since 1920. Round the numbers you report to 2 decimal places. Do the same for home runs per game. Do you see any trends?
    
+-- SELECT b.so, p.so,
+-- CASE WHEN yearid BETWEEN '1920' AND '1929' THEN '1920s'
+-- WHEN yearid BETWEEN '1930' AND '1939' THEN '1930s'
+-- WHEN yearid BETWEEN '1940' AND '1949' THEN '1940s'
+-- WHEN yearid BETWEEN '1950' AND '1959' THEN '1950s'
+-- WHEN yearid BETWEEN '1960' AND '1969' THEN '1960s'
+-- WHEN yearid BETWEEN '1970' AND '1979' THEN '1970s'
+-- WHEN yearid BETWEEN '1980' AND '1989' THEN '1980s'
+-- WHEN yearid BETWEEN '1990' AND '1999' THEN '1990s'
+-- WHEN yearid BETWEEN '2000' AND '2009' THEN '2000s'
+-- WHEN yearid BETWEEN '2010' AND '2019' THEN '2010s'
+-- ELSE 'Other'
+-- END AS Decade
+-- FROM batting AS b
+-- LEFT JOIN pitching AS p
+-- USING(yearid)
 
 -- 6. Find the player who had the most success stealing bases in 2016, where __success__ is measured as the percentage of stolen base attempts which are successful. (A stolen base attempt results either in a stolen base or being caught stealing.) Consider only players who attempted _at least_ 20 stolen bases.
 	
