@@ -68,7 +68,9 @@
    
 -- 5. Find the average number of strikeouts per game by decade since 1920. Round the numbers you report to 2 decimal places. Do the same for home runs per game. Do you see any trends?
    
--- SELECT b.so, p.so,
+--the below took 1 minute plus to run - can't be right
+   
+-- SELECT ROUND(AVG(b.so),2) AS batting, ROUND(AVG(p.so),2) AS pitching, t.g,
 -- CASE WHEN yearid BETWEEN '1920' AND '1929' THEN '1920s'
 -- WHEN yearid BETWEEN '1930' AND '1939' THEN '1930s'
 -- WHEN yearid BETWEEN '1940' AND '1949' THEN '1940s'
@@ -80,10 +82,13 @@
 -- WHEN yearid BETWEEN '2000' AND '2009' THEN '2000s'
 -- WHEN yearid BETWEEN '2010' AND '2019' THEN '2010s'
 -- ELSE 'Other'
--- END AS Decade
+-- END AS decade
 -- FROM batting AS b
 -- LEFT JOIN pitching AS p
 -- USING(yearid)
+-- LEFT JOIN teams AS t
+-- USING(yearid)
+-- GROUP BY decade, t.g
 
 -- 6. Find the player who had the most success stealing bases in 2016, where __success__ is measured as the percentage of stolen base attempts which are successful. (A stolen base attempt results either in a stolen base or being caught stealing.) Consider only players who attempted _at least_ 20 stolen bases.
 	
