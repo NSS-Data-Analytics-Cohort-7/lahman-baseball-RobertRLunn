@@ -2,11 +2,14 @@
 
 -- **Initial Questions**
 -- 1. What range of years for baseball games played does the provided database cover? 
---get oldest game - 
+-- get oldest game - 
+
 -- SELECT CAST(debut AS DATE) AS oldestgame, CAST(finalgame AS DATE) AS newestgame
 -- FROM people
 -- ORDER BY oldestgame ASC, newestgame DESC;
---get most recent game - 
+
+-- get most recent game - 
+
 -- SELECT CAST(finalgame AS DATE) AS finalgame
 -- FROM people
 -- WHERE finalgame IS NOT NULL
@@ -67,10 +70,13 @@
 -- Outfield 29560, Infield 58934, Battery 41424
    
 -- 5. Find the average number of strikeouts per game by decade since 1920. Round the numbers you report to 2 decimal places. Do the same for home runs per game. Do you see any trends?
-   
---the below took 1 minute plus to run - can't be right
-   
--- SELECT ROUND(AVG(b.so),2) AS batting, ROUND(AVG(p.so),2) AS pitching, t.g,
+
+--teams table - teamid, g, so
+
+-- ROUND(ROUND(SUM(so),2) / ROUND(SUM(g),2),2) AS avg_strikeouts, -- idea from Tara 
+
+
+-- SELECT ROUND(SUM(CAST(so AS numeric)) / SUM(CAST(g AS numeric)/2), 2) AS avg_so, ROUND(SUM(CAST(hr AS numeric)) / SUM(CAST(g AS numeric)/2), 2) AS avg_hr,
 -- CASE WHEN yearid BETWEEN '1920' AND '1929' THEN '1920s'
 -- WHEN yearid BETWEEN '1930' AND '1939' THEN '1930s'
 -- WHEN yearid BETWEEN '1940' AND '1949' THEN '1940s'
@@ -83,14 +89,14 @@
 -- WHEN yearid BETWEEN '2010' AND '2019' THEN '2010s'
 -- ELSE 'Other'
 -- END AS decade
--- FROM batting AS b
--- LEFT JOIN pitching AS p
--- USING(yearid)
--- LEFT JOIN teams AS t
--- USING(yearid)
--- GROUP BY decade, t.g
+-- FROM teams
+-- WHERE yearid >= '1920'
+-- GROUP BY decade;
+   
 
 -- 6. Find the player who had the most success stealing bases in 2016, where __success__ is measured as the percentage of stolen base attempts which are successful. (A stolen base attempt results either in a stolen base or being caught stealing.) Consider only players who attempted _at least_ 20 stolen bases.
+
+
 	
 
 -- 7.  From 1970 â€“ 2016, what is the largest number of wins for a team that did not win the world series? What is the smallest number of wins for a team that did win the world series? Doing this will probably result in an unusually small number of wins for a world series champion â€“ determine why this is the case. Then redo your query, excluding the problem year. How often from 1970 â€“ 2016 was it the case that a team with the most wins also won the world series? What percentage of the time?
