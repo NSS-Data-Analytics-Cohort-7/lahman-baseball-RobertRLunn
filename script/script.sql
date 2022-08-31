@@ -105,9 +105,18 @@
 -- Then redo your query, excluding the problem year. 1981
 -- How often from 1970 â€“ 2016 was it the case that a team with the most wins also won the world series? What percentage of the time?
 
---3rd part 
+--3rd part (work in progress)
 
---???
+-- SELECT w, teamid
+-- FROM teams
+-- WHERE yearid BETWEEN '1970' AND '2016'
+-- AND yearid <> '1981'
+-- AND teamid IN
+-- (SELECT teamid
+-- FROM teams
+-- WHERE WSWin = 'Y')
+-- GROUP BY teamid, w
+-- ORDER BY w DESC;
 
 --1st part
 -- SELECT w, teamid
@@ -157,6 +166,18 @@
 
 -- 9. Which managers have won the TSN Manager of the Year award in both the National League (NL) and the American League (AL)? Give their full name and the teams that they were managing when they won the award.
 
+-- SELECT playerid, lgid
+-- FROM awardssharemanagers
+-- WHERE playerid IN
+-- (SELECT playerid
+--  CASE WHEN 
+-- FROM awardssharemanagers
+-- )
 
+-- SELECT playerid, lgid, awardid
+-- FROM awardssharemanagers
+-- WHERE awardid LIKE '%TSN%'
+
+-- lgid (league id either AL or NL), playerid (mgr's id) awardsmanagers(either TSN Manager of the Year OR BBWAA Manager of the Year)
 
 -- 10. Find all players who hit their career highest number of home runs in 2016. Consider only players who have played in the league for at least 10 years, and who hit at least one home run in 2016. Report the players' first and last names and the number of home runs they hit in 2016.
