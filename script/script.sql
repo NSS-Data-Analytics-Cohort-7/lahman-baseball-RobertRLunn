@@ -107,7 +107,7 @@
 
 --3rd part (work in progress)
 
--- SELECT w, teamid
+-- SELECT w, teamid, yearid
 -- FROM teams
 -- WHERE yearid BETWEEN '1970' AND '2016'
 -- AND yearid <> '1981'
@@ -115,7 +115,7 @@
 -- (SELECT teamid
 -- FROM teams
 -- WHERE WSWin = 'Y')
--- GROUP BY teamid, w
+-- GROUP BY teamid, w, yearid
 -- ORDER BY w DESC;
 
 --1st part
@@ -165,6 +165,27 @@
 -- LIMIT 5;
 
 -- 9. Which managers have won the TSN Manager of the Year award in both the National League (NL) and the American League (AL)? Give their full name and the teams that they were managing when they won the award.
+
+
+-- WITH mgrsal AS (SELECT playerid
+--             FROM awardsmanagers
+--             WHERE awardid LIKE '%TSN%' AND lgid = 'AL'),            
+-- mgrsnl AS (SELECT playerid
+--             FROM awardsmanagers
+--             WHERE awardid LIKE '%TSN%' AND lgid = 'NL')          
+-- SELECT p.namefirst, p.namelast, p.namegiven, m.teamid
+-- FROM awardsmanagers
+-- LEFT JOIN people AS p
+-- USING(playerid)
+-- LEFT JOIN mgrsal
+-- USING(playerid)
+-- LEFT JOIN mgrsnl
+-- USING(playerid)
+-- LEFT JOIN managers AS m
+-- USING(yearid)
+-- WHERE mgrsal.playerid = mgrsnl.playerid;
+
+
 
 -- SELECT playerid, lgid
 -- FROM awardsmanagers
