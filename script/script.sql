@@ -182,26 +182,25 @@
 -- LEFT JOIN mgrsnl
 -- USING(playerid)
 -- LEFT JOIN managers AS m
--- USING(yearid)
--- WHERE mgrsal.playerid = mgrsnl.playerid;
+-- USING(playerid)
+-- WHERE mgrsal.playerid = mgrsnl.playerid
+-- GROUP BY p.namefirst, p.namelast, p.namegiven, m.teamid
 
-
-
--- SELECT playerid, lgid
--- FROM awardsmanagers
--- WHERE playerid IN
--- (SELECT playerid
--- FROM awardsmanagers
---  WHERE awardid LIKE '%TSN%' AND lgid IN ('NL', 'AL')
--- )
-
--- SELECT playerid, lgid, awardid
--- FROM awardsmanagers
--- WHERE awardid LIKE '%TSN%'
-
--- -- lgid (league id either AL or NL), playerid (mgr's id) awardsmanagers(either TSN Manager of the Year OR BBWAA Manager of the Year)
-
--- SELECT *
--- FROM awardsmanagers
 
 -- 10. Find all players who hit their career highest number of home runs in 2016. Consider only players who have played in the league for at least 10 years, and who hit at least one home run in 2016. Report the players' first and last names and the number of home runs they hit in 2016.
+
+-- player firstname, lastname, count(homeruns in 2016)
+-- MAX(homeruns) in 2016
+-- count(yearid) >= 10 - players who've been playing 10 yrs 
+-- homerun in 2016 >= 1
+-- USE BATTING
+
+SELECT p.namefirst, p.namelast, p.namegiven, b.hr -- players who hit a homerun in 2016
+FROM people AS p
+LEFT JOIN batting AS b
+USING(playerid)
+WHERE yearid = '2016' AND b.hr >= 1
+GROUP BY p.namefirst, p.namelast, p.namegiven, b.hr
+ORDER BY b.hr DESC;
+
+
